@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <section id="home">
+    <div class="navbar">
+      <div classs="logo"></div>
+      <div class="search-box"></div>
+    </div>
+    <div class="main-container">
+      <div class="filter-sort">
+        <div class="filter"></div>
+        <div class="sort"></div>
+      </div>
+      <div class="content">
+        <div class="card"></div>
+        <div class="card"></div>
+      </div>
+      <div class="pagination"></div>
+    </div>
+  </section>
+  <section id="detail">
+    <div class="main-container">
+      <div class="card-detail">
+        <div class="detail-image">imgUrl</div>
+        <div class="detail-content">
+          <div class="detail-name"></div>
+          <div class="detail-price"></div>
+          <div class="detail-description"></div>
+          <div class="detail-category"></div>
+          <div class="detail-user"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
