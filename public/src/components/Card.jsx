@@ -1,21 +1,22 @@
-export default function Card() {
+export default function Card({product}) {
   return (
     <>
-      <div className="card bg-base-100 w-96 shadow-xl">
+      {console.log(product)}
+      <div className="card card-bordered bg-base-100 w-96 shadow-xl">
         <figure>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+            src={product.imgUrl}
             alt="Shoes" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
-            Shoes!
+            {product.name}
             <div className="badge badge-secondary">NEW</div>
           </h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <p>{product.description}</p>
+          <div className="text-start startw-auto">$ {product.price}</div>
           <div className="card-actions justify-end">
-            <div className="badge badge-outline">Fashion</div>
-            <div className="badge badge-outline">Products</div>
+            <div className="badge badge-outline">Category{product.categoryId}</div>
           </div>
         </div>
       </div>

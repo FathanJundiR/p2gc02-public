@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -24,9 +25,9 @@ function App() {
 
   return (
     <>
-      <Navbar page={page}/>
+      <Navbar page={page} setPage={setPage}/>
       {page === 'login' && <Login url={url} setPage={setPage} />}
-      {page === 'products' && <Products />}
+      {page === 'products' && <Products setPage={setPage}/>}
       {page === 'categories' && <Categories />}
       {page === 'form' && <Form />}
     </>

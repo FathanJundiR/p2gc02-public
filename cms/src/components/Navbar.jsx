@@ -5,8 +5,12 @@ export default function Navbar({page}) {
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">L'enfer</a>
         </div>
+        <div className="flex-1">
+          <div className="btn btn-outline"></div>
+          <div className="btn btn-outline">category</div>
+        </div>
         {page !== "login" ? (
-        <div className="flex-none gap-2">
+        <div className="flex-1 gap-2 justify-end">
           <div className="form-control">
             <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
           </div>
