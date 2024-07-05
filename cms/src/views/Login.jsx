@@ -1,16 +1,19 @@
 import axios from 'axios';
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Toastify from 'toastify-js'
 
 export default function Login({setPage, url}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleLogin(event) {
     event.preventDefault();
     try {
       let { data } = await axios.post(`${url}/apis/login`, {email, password});
       localStorage.setItem("access_token", data.data.access_token);
+      navigate('/');
 
       Toastify({
         text: "Success Login",
@@ -29,8 +32,9 @@ export default function Login({setPage, url}) {
       }).showToast();
       setPage('products');
     } catch (error) {
+      console.log(error);
       Toastify({
-        text: error.response.data.error,
+        text: "error.response.data.error",
         duration: 2000,
         newWindow: true,
         close: true,

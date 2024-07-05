@@ -1,42 +1,81 @@
-export default function Navbar({page}) {
+import Toastify from "toastify-js";
+import { useNavigate } from "react-router-dom";
+
+export default function Navbar({ page, setPage }) {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.clear();
+    Toastify({
+      text: "Success Logout",
+      duration: 2000,
+      newWindow: true,
+      close: true,
+      gravity: "bottom",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#00B29F",
+        color: "#17202A",
+        boxShadow: "0 5px 10px black",
+        fontWeight: "bold",
+      },
+    }).showToast();
+  }
+
   return (
     <>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 mb-16">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">L'enfer</a>
         </div>
-        <div className="flex-1">
-          <div className="btn btn-outline"></div>
-          <div className="btn btn-outline">category</div>
-        </div>
-        {page !== "login" ? (
-        <div className="flex-1 gap-2 justify-end">
-          <div className="form-control">
-            <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+
+        <div className="flex-1 gap-2">
+          <div
+            className="btn btn-outline"
+            onClick={() => navigate("/products")}
+          >
+            Products
           </div>
+          <div className="">
+            <div
+              className="btn btn-outline btn-md"
+              onClick={() => navigate("/categories")}
+            >
+              {/* <svg relative viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19 3H5C3.58579 3 2.87868 3 2.43934 3.4122C2 3.8244 2 4.48782 2 5.81466V6.50448C2 7.54232 2 8.06124 2.2596 8.49142C2.5192 8.9216 2.99347 9.18858 3.94202 9.72255L6.85504 11.3624C7.49146 11.7206 7.80967 11.8998 8.03751 12.0976C8.51199 12.5095 8.80408 12.9935 8.93644 13.5872C9 13.8722 9 14.2058 9 14.8729L9 17.5424C9 18.452 9 18.9067 9.25192 19.2613C9.50385 19.6158 9.95128 19.7907 10.8462 20.1406C12.7248 20.875 13.6641 21.2422 14.3321 20.8244C15 20.4066 15 19.4519 15 17.5424V14.8729C15 14.2058 15 13.8722 15.0636 13.5872C15.1959 12.9935 15.488 12.5095 15.9625 12.0976C16.1903 11.8998 16.5085 11.7206 17.145 11.3624L20.058 9.72255C21.0065 9.18858 21.4808 8.9216 21.7404 8.49142C22 8.06124 22 7.54232 22 6.50448V5.81466C22 4.48782 22 3.8244 21.5607 3.4122C21.1213 3 20.4142 3 19 3Z" fill="#ffff"/>
+                    </svg>Sort */}
+              Categories
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 gap-2 justify-end">
           <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            >
+              <li onClick={handleLogout}>
+                <a>Logout</a>
               </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
             </ul>
           </div>
-        </div>) : ""}
+        </div>
+        
       </div>
     </>
-  )
+  );
 }

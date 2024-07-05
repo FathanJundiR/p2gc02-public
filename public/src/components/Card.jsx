@@ -1,9 +1,8 @@
-export default function Card({product}) {
+export default function Card({product, setPage, productId, setDetail}) {
   return (
     <>
-      {console.log(product)}
       <div className="card card-bordered bg-base-100 w-96 shadow-xl">
-        <figure>
+        <figure>s
           <img
             src={product.imgUrl}
             alt="Shoes" />
@@ -15,8 +14,16 @@ export default function Card({product}) {
           </h2>
           <p>{product.description}</p>
           <div className="text-start startw-auto">$ {product.price}</div>
-          <div className="card-actions justify-end">
+          <div className="card-actions justify-start">
             <div className="badge badge-outline">Category{product.categoryId}</div>
+          </div>
+          <div className="flex flex-wrap card-actions justify-end">
+            <div 
+              className="btn flex-1" 
+              onClick={(e) => {e.preventDefault;setDetail(productId);}}
+            >Detail
+            </div>
+            <div className="btn flex-1">Buy{product.categoryId}</div>
           </div>
         </div>
       </div>
