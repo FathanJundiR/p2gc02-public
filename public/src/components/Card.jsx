@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Card({product, setPage, productId, setDetail}) {
+export default function Card({product}) {
   const navigate = useNavigate();
 
 

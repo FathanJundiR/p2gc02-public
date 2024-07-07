@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Toastify from 'toastify-js';
+import { useNavigate } from "react-router-dom";
 
 export default function Products({url}) {
   const access_token = localStorage.access_token;
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   async function fetchProduct() {
     try {
@@ -70,7 +72,7 @@ export default function Products({url}) {
   return (
     <>
       <div className="mb-8 flex justify-start">
-        <div className="btn btn-secondary" onClick={() => setPage('form')}>Add More</div>
+        <div className="btn btn-secondary" onClick={() => navigate('/products/add')}>Add More</div>
       </div>
       <div className="overflow-x-auto">
         <table className="table">
@@ -101,7 +103,7 @@ export default function Products({url}) {
                   <td>{product.imgUrl}</td>
                   <td>
                     <div className="flex gap-3">
-                      <div className="btn flex-auto">Edit</div>
+                      <div className="btn flex-auto" onClick={(e) => navigate(`/products/edit/${product.id}`)}>Edit</div>
                       <div className="btn flex-auto">Delete</div> 
                     </div>
                   </td>

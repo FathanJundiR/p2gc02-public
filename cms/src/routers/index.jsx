@@ -4,6 +4,8 @@ import Login from "../views/Login";
 import BaseLayout from "../views/BaseLayout";
 import Products from "../views/Products";
 import Categories from "../views/Categories";
+import AddProduct from "../views/AddProduct";
+import EditProduct from "../views/EditProduct";
 const url = "https://phase2-aio.vercel.app";
 
 const router = createBrowserRouter([
@@ -65,13 +67,17 @@ const router = createBrowserRouter([
         element: <Products url={url} />
       },
       {
-        path: "/products/edit",
-        element: <Products url={url} />
-      },
-      {
         path: "/categories",
         element: <Categories url={url} />
-      }
+      },
+      {
+        path: "/products/add",
+        element: <AddProduct url={url} />
+      },
+      {
+        path: "/products/edit/:id",
+        element: <EditProduct url={url} />
+      },
     ]
   },
 ]);
