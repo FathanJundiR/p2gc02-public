@@ -1,11 +1,17 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function Card({product, setPage, productId, setDetail}) {
+  const navigate = useNavigate();
+
+
+  
   return (
     <>
       <div className="card card-bordered bg-base-100 w-96 shadow-xl">
-        <figure>s
+        <figure>
           <img
             src={product.imgUrl}
-            alt="Shoes" />
+            alt="IMAGE OF PRODUCT" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
@@ -20,10 +26,10 @@ export default function Card({product, setPage, productId, setDetail}) {
           <div className="flex flex-wrap card-actions justify-end">
             <div 
               className="btn flex-1" 
-              onClick={(e) => {e.preventDefault;setDetail(productId);}}
+              onClick={(e) => {e.preventDefault;navigate(`/products/${product.id}`);}}
             >Detail
             </div>
-            <div className="btn flex-1">Buy{product.categoryId}</div>
+            <div className="btn flex-1">Buy</div>
           </div>
         </div>
       </div>

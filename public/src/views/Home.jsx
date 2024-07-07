@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home({ url, setPage, setDetail }) {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState([]);
+  const [sort, setSort] = useState("ASC");
   const navigate = useNavigate();
 
   async function fetchProducts() {
     try {
       const { data } = await axios.get(
-        `${url}/apis/pub/branded-things/products`
+        `${url}/apis/pub/branded-things/products?q=${search}&limit=8&page=1&sort=${sort}`
       );
       setProducts(data.data.query);
     } catch (error) {
@@ -32,6 +34,11 @@ export default function Home({ url, setPage, setDetail }) {
         },
       }).showToast();
     }
+  }
+
+  function searchProduct(e) {
+    let search = e.target.value;
+    setSearch(search);
   }
 
   async function fetchDetail() {
@@ -62,20 +69,28 @@ export default function Home({ url, setPage, setDetail }) {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [search, sort]);
 
   return (
     <>
-      <div className="form-control flex justify-item-center">
+      <form action="" method="get" className=" flex justify-center mb-5">
         <input
           type="text"
           placeholder="Search"
-          className="input input-bordered "
+          className="input input-bordered w-auto"
+          onChange={(e) => searchProduct(e)}
         />
-      </div>
+      </form>
+
       <div className="home-query justify-item-center  flex flex-1 h-16 gap-5 justify-center ">
         <div className="btn btn-neutral ">Filter By</div>
-        <div className="btn btn-neutral">Short By</div>
+        <details className="dropdown">
+          <summary className="btn btn-neutral">Short By</summary>
+          <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li ><a onClick={() => setSort("ASC")}>Ascending</a></li>
+            <li ><a onClick={() => setSort("DESC")}>Descending</a></li>
+          </ul>
+        </details>
       </div>
       <div className="home-content flex flex-wrap justify-center gap-4">
         {products.map((product) => {

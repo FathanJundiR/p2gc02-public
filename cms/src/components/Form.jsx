@@ -2,9 +2,14 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Toastify from 'toastify-js';
 
-export default function Form({url}) {
+export default function Form({url, handleSubmit, product, nameProp}) {
   const [categories, setCategories] = useState([]);
-  let access_token =localStorage.access_token
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [imgUrl, setImgUrl] = useState("");
+  const [stock, setStock] = useState(0);
+  const [categoryId, setCategoryId] = useState("");
 
   async function fetchCategory() {
     try {
@@ -38,25 +43,110 @@ export default function Form({url}) {
 		fetchCategory();
 	}, []);
 
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(product.price);
+      setImgUrl(product.imgUrl);
+      setStock(product.stock);
+      setCategoryId(product.categoryId);
+    }
+  }, [product]);
+
   return (
     <>
       <div className="mb-8 font-semibold text-xl text-fuchsia-600">Add New Product</div>
       <div className="flex flex-col items-center gap-4 mt-14">
-        <div className="label ">
-          <span className="label-text">Product Name: </span>
-        </div>
-        <input type="text" placeholder="Product Name" className="input input-secondary w-full max-w-xs" />
-        <input type="text" placeholder="Content" className="input input-secondary w-full max-w-xs" />
-        <select className="select select-secondary w-full max-w-xs">
-          <option disabled>Category</option>
-          {categories.map(category => {
-            return <option key={category.id}>{category.name}</option>
-          })}
-        </select>
-        <input type="text" placeholder="Price" className="input input-secondary w-full max-w-xs" />
-        <input type="text" placeholder="Stock" className="input input-secondary w-full max-w-xs" />
-        <input type="text" placeholder="Image" className="input input-secondary w-full max-w-xs" />
-        <textarea placeholder="Description" className="input input-secondary w-full max-w-xs" />
+        <form onSubmit={(e) => {
+            const dataProduct = {
+              name, 
+              description, 
+              price, 
+              imgUrl, 
+              stock, 
+              categoryId
+            };
+            handleSubmit(e, dataProduct);
+          }
+        }>
+          <div>
+            <div className="label ">
+              <span className="label-text">Product Name: </span>
+            </div>
+            <input 
+              type="text" 
+              placeholder="Product Name" 
+              className="input input-secondary w-full max-w-xs"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div>
+            <div className="label ">
+              <span className="label-text">Category: </span>
+            </div>
+            <select 
+              className="select select-secondary w-full max-w-xs"
+              onChange={(e) => setCategoryId(e.target.value)}
+            >
+              <option disabled>Category</option>
+              {categories.map(category => {
+                return <option key={category.id} value={category.id}>{category.name}</option>
+              })}
+            </select>
+          </div>
+          <div>
+            <div className="label ">
+              <span className="label-text">Price: </span>
+            </div>
+            <input 
+              type="number" 
+              placeholder="Price" 
+              className="input input-secondary w-full max-w-xs"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <div>
+            <div className="label ">
+              <span className="label-text">Stock: </span>
+            </div>
+            <input 
+              type="number" 
+              placeholder="Stock" 
+              className="input input-secondary w-full max-w-xs"
+              onChange={(e) => setStock(e.target.value)}
+              value={stock}
+            />
+          </div>
+          <div>
+            <div className="label ">
+              <span className="label-text">Image URL: </span>
+            </div>
+            <input 
+              type="text" 
+              placeholder="Image" 
+              className="input input-secondary w-full max-w-xs"
+              onChange={(e) => setImgUrl(e.target.value)}
+              value={imgUrl} 
+            />
+          </div>
+          <div>
+            <div className="label ">
+              <span className="label-text">Description: </span>
+            </div>
+            <textarea 
+              placeholder="Description" 
+              className="input input-secondary w-full max-w-xs" 
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
+          </div>
+          <div>
+            <button type="submit" className="w-full btn btn-accent mt-10">{nameProp}</button>
+          </div>
+        </form>
       </div>
     </>
   )
